@@ -11,6 +11,8 @@
 | Surge | https://prophets-20261031-v1-grokstudy.surge.sh |
 | Netlify | https://prophets-20261031-v1-grokstudy.netlify.app |
 
+最后部署与 200 状态核验：2026-10-31 15:57（台北时间）
+
 仓库：https://github.com/07-Je-Grok-Love-Personal-20260928/Prophets-GROKstudy
 
 ## 📚 内容（15 页）
