@@ -1,0 +1,9 @@
+_shots/
+build/cache/
+build/__pycache__/
+__pycache__/
+*.pyc
+.netlify/
+.env
+*secret*
+node_modules/

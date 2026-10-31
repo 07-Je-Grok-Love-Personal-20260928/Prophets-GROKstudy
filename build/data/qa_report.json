@@ -1,0 +1,317 @@
+{
+ "bible@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "bible@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "bible@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "compare@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "compare@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "compare@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "confessions@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "confessions@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "confessions@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "creeds@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "creeds@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "creeds@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "daniel@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "daniel@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "daniel@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "ezekiel@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "ezekiel@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "ezekiel@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "history@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "history@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "history@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "index@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "index@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "index@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "isaiah@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "isaiah@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "isaiah@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "jeremiah@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "jeremiah@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "jeremiah@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "memory@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "memory@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "memory@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "minor1@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "minor1@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "minor1@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "minor2@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "minor2@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "minor2@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "minor3@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "minor3@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "minor3@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "sources@390": {
+  "sw": 390,
+  "vw": 390,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "sources@768": {
+  "sw": 768,
+  "vw": 768,
+  "over": [],
+  "miss": [],
+  "errs": []
+ },
+ "sources@1440": {
+  "sw": 1440,
+  "vw": 1440,
+  "over": [],
+  "miss": [],
+  "errs": []
+ }
+}
