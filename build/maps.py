@@ -96,21 +96,187 @@ S(id="persia", title="波斯时期：归回、重建圣殿与最后的先知（�
   regions=[("波斯（帕尔斯）",53.0,29.8,2.4,1.6,"green"),("米底",49.5,35.6,2.4,1.5,"teal"),("“河西省”（犹大省 Yehud）",35.6,32.3,1.6,1.3,"gold")],
   water=[("大海（地中海）",31.5,33.6),("波斯湾",51.2,27.4),("红海",36.0,24.8)],
   rcap="金：所罗巴伯（538）归回，沿幼发拉底河北绕；绿：尼希米（445）。哈该、撒迦利亚（520）、玛拉基（约460–430）都在犹大省说预言")
+# ---------------- v2 新增地图 ----------------
+# 7 阿摩司列国神谕包围圈
+S(id="amos", title="阿摩司的“包围圈”：神谕从外邦一圈圈收紧到以色列（摩1–2）", bbox=(33.6, 37.2, 30.3, 33.9), fine=True, fs=16,
+  markers=[M("dam","① 大马士革（亚兰）","Damascus",36.29,33.51,"摩1:3","用打粮食的铁器打基列——战争暴行。","teal"),
+    M("gaz","② 迦萨（非利士）","Gaza",34.46,31.50,"摩1:6","掳掠全群的人交给以东——贩卖人口。","orange"),
+    M("tyr","③ 推罗（腓尼基）","Tyre",35.20,33.27,"摩1:9","不记念弟兄的盟约——背约贩奴。","teal"),
+    M("bos","④ 以东（波斯拉）","Edom",35.60,30.73,"摩1:11","拿刀追赶兄弟——世仇（雅各与以扫）。","red"),
+    M("rab","⑤ 亚扪（拉巴）","Ammon",35.93,31.95,"摩1:13","剖开基列的孕妇——为扩张疆界。","pink"),
+    M("moa","⑥ 摩押","Moab",35.70,31.18,"摩2:1","将以东王的骸骨焚烧成灰——亵渎死者。","pink"),
+    M("jeru","⑦ 犹大（耶路撒冷）","Judah",35.23,31.78,"摩2:4","厌弃耶和华的训诲——背弃律法。","gold",True),
+    M("sam","⑧ 以色列（撒玛利亚）","Israel",35.19,32.28,"摩2:6","为一双鞋卖了穷人——靶心！","purple",True)],
+  routes=[("dam","gaz","red",.25),("gaz","tyr","red",.25),("tyr","bos","red",.15),("bos","rab","red",.2),("rab","moa","red",.2),("moa","jeru","red",.2),("jeru","sam","red",.3)],
+  water=[("大海（地中海）",34.3,32.9),("盐海",35.55,31.35)], rcap="红色箭头＝神谕的次序：先东北、西南、西北、东南……像绳索绕圈，最后落在以色列身上（3×4 的“三番四次”公式）", seq=True)
+# 8 被掳与归回：三波出、三波回
+S(id="exile", title="三次被掳 · 三次归回：从耶路撒冷到巴比伦，再回到锡安（主前605–445）", bbox=(31.0, 52.0, 27.5, 38.5), fs=19,
+  markers=[M("jeru","耶路撒冷","Jerusalem",35.23,31.78,"605 / 597 / 586","① 605 但以理等贵族被掳 ② 597 约雅斤与以西结被掳 ③ 586 城与圣殿被焚。","gold",True),
+    M("rib","利比拉","Riblah",36.55,34.45,"586","尼布甲尼撒大本营：西底家眼见众子被杀后被剜眼（王下25:6-7）。","gray"),
+    M("car","迦基米施","Carchemish",38.01,36.83,"605","巴比伦击败埃及，夺得叙利亚—巴勒斯坦（耶46:2）。","gray"),
+    M("bab","巴比伦","Babylon",44.42,32.54,"605–539","被掳之地；但以理事奉四朝；539 古列不战而入城。","orange",True),
+    M("che","迦巴鲁河（尼普尔）","Chebar / Nippur",45.23,32.13,"结1:1","被掳者聚居的提勒亚毕；以西结见荣耀异象。","purple",True),
+    M("sus","书珊","Susa",48.26,32.19,"445","尼希米从书珊王宫出发（尼1–2）。","green"),
+    M("ecb","亚马他","Ecbatana",48.52,34.80,"拉6:2","找到古列诏书的卷轴。","teal")],
+  routes=[("jeru","rib","gray",.2),("rib","car","gray",.2),("car","bab","red",-.1),("bab","jeru","green",-.25),("sus","jeru","teal",.3)],
+  regions=[("巴比伦尼亚",45.0,32.0,1.8,1.2,"orange"),("“河西省”",35.8,32.6,1.4,1.4,"gold")],
+  water=[("大海（地中海）",33.0,34.4),("波斯湾",50.3,28.4)], rcap="灰→红：被掳者沿肥沃月湾北上再南下（约1,400公里，四个月路程，拉7:9）；绿：538 所罗巴伯、458 以斯拉归回；青：445 尼希米",
+  steps=[("605","第一次被掳：但以理与三友（但1）","red"),("597","第二次：约雅斤、以西结与一万人（王下24）","red"),("586","第三次：圣殿被焚、城墙拆毁（王下25；哀1–5）","red"),
+         ("538","第一次归回：所罗巴伯与约书亚，约五万人（拉1–2）","green"),("458","第二次：以斯拉带律法归回（拉7–8）","green"),("445","第三次：尼希米重修城墙（尼1–6）","teal")])
+# 9 耶路撒冷城（希西家—尼希米）
+S(id="jerusalem", title="耶路撒冷城：701 被围不破，586 城破殿焚（锡安的地理）", bbox=(35.222, 35.248, 31.762, 31.786), fs=16, scene=True,
+  markers=[M("tem","圣殿山（摩利亚）","Temple Mount",35.2355,31.7781,"赛6; 结8–11","以赛亚见主坐在宝座上；以西结见荣耀离殿。","gold",True),
+    M("cod","大卫城（俄斐勒）","City of David",35.2353,31.7735,"撒下5:7","最古老的耶路撒冷，锡安的保障。","orange",True),
+    M("gih","基训泉","Gihon Spring",35.2365,31.7731,"代下32:30","城中唯一常年水源——围城生死所系。","blue"),
+    M("sil","西罗亚池","Pool of Siloam",35.2350,31.7704,"赛8:6; 约9:7","希西家水道终点（西罗亚碑文）；“西罗亚缓流的水”。","blue",True),
+    M("bro","宽墙","Broad Wall",35.2312,31.7760,"赛22:10; 尼3:8","为抵御亚述拆房修城，约7米厚（犹太区遗迹）。","red"),
+    M("mol","橄榄山","Mount of Olives",35.2441,31.7784,"结11:23; 亚14:4","荣耀停在城东的山上；主再来时脚站在橄榄山。","green",True),
+    M("kid","汲沦谷","Kidron Valley",35.2385,31.7760,"耶31:40","城东的谷——将来“归耶和华为圣”。","teal"),
+    M("hin","欣嫩子谷（陀斐特）","Hinnom / Topheth",35.2310,31.7690,"耶7:31; 19","焚烧儿女献给摩洛之地——“杀戮谷”。","red"),
+    M("eg","东门（金门遗址）","East Gate",35.2373,31.7788,"结10:19; 43:4","荣耀从东门离去，又从东门回来。","purple")],
+  routes=[("gih","sil","blue",.25),("tem","mol","purple",-.2)], rcap="蓝：希西家水道（约533米，基训泉→西罗亚池，王下20:20）；紫：荣耀离开圣殿的路线（结10:19 → 11:23）")
+ICON = {"jeru": "🏛️", "tem": "🏛️", "nin": "🦁", "bab": "🏰", "sus": "👑", "per": "🏛️", "rom": "🦅", "pel": "🐐", "tar": "⛵", "jop": "⚓", "tyr": "⛵", "dam": "🏯",
+        "sam": "🐄", "lac": "⚔️", "ana": "🏡", "tek": "🐑", "mor": "🌾", "bet": "🐂", "gat": "🏡", "jez": "🩸", "gaz": "🏺", "rab": "🏕️", "bos": "🏔️", "moa": "🔥",
+        "ash": "🗿", "kal": "🗿", "goz": "⛓️", "har": "🌙", "tha": "🏺", "mem": "🔺", "nip": "👁️", "che": "👁️", "car": "⚔️", "rib": "⛓️", "miz": "🌿", "tah": "🔺",
+        "ecb": "📜", "ale": "📚", "ant": "🐏", "cod": "🏰", "gih": "💧", "sil": "💧", "bro": "🧱", "mol": "🫒", "kid": "🌊", "hin": "🔥", "eg": "🚪"}
+from rmap import base, proj, Placer, spread, tw
+import json, math
+def concept_svg(sp, W):
+    """🎨 讲解图：卡通化底图（Natural Earth 简化）+ 大图标 + 编号 + 动态路线（SMIL 小圆点沿路线移动）。独立 SVG 文件，离线可用。"""
+    P, sx, sy, H, land, lakes, riv = base(sp["bbox"], W, False)
+    fs = 26 if W >= 1000 else 22
+    o = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" font-family="\'Noto Sans CJK SC\',\'PingFang SC\',\'Microsoft YaHei\',sans-serif">',
+         '<defs><linearGradient id="sea" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8dcf5"/><stop offset="1" stop-color="#6fb8e6"/></linearGradient>',
+         '<linearGradient id="ld" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3d1"/><stop offset="1" stop-color="#f3d99b"/></linearGradient>',
+         '<filter id="sh" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#3b2a10" flood-opacity=".28"/></filter>',
+         '<pattern id="wv" width="60" height="24" patternUnits="userSpaceOnUse"><path d="M0,12 q15,-8 30,0 t30,0" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2"/></pattern>']
+    cols = sorted({PAL[r[2]] for r in sp.get("routes", ())})
+    for c in cols: o.append(f'<marker id="a{c[1:]}" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="{c}"/></marker>')
+    o.append('</defs><style>.wv{animation:wv 6s linear infinite}@keyframes wv{to{transform:translateX(60px)}}.rt{stroke-dasharray:14 10;animation:fl 1.4s linear infinite}@keyframes fl{to{stroke-dashoffset:-48}}'
+             '.pin{transform-box:fill-box;transform-origin:center;animation:bob 3.2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-4px)}}'
+             '@media (prefers-reduced-motion:reduce){.wv,.rt,.pin{animation:none}}</style>')
+    o.append(f'<rect width="{W}" height="{H}" fill="url(#sea)"/><g class="wv"><rect x="-60" width="{W + 120}" height="{H}" fill="url(#wv)"/></g>')
+    o.append(f'<path d="{land}" fill="url(#ld)" stroke="#b58a3a" stroke-width="3" stroke-linejoin="round" fill-rule="evenodd" filter="url(#sh)"/>')
+    if lakes: o.append(f'<path d="{lakes}" fill="#8fd0f0" stroke="#4a9fd0" stroke-width="2"/>')
+    if riv: o.append(f'<path d="{riv}" fill="none" stroke="#3a92d6" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>')
+    for lab, lon, lat, rx, ry, c in sp.get("regions", ()):
+        x, y = P(lon, lat)
+        o.append(f'<ellipse cx="{x:.0f}" cy="{y:.0f}" rx="{rx * sx:.0f}" ry="{ry * sy:.0f}" fill="{PAL[c]}" fill-opacity=".22" stroke="{PAL[c]}" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>')
+    pl = Placer(W, H); mk = sp["markers"]; R = 24 if W >= 1000 else 20
+    pos = spread(mk, P, R + 2, R)
+    for m in mk:
+        x, y, r = pos[m["k"]]; pl.add((x - r - 4, y - r - 4, x + r + 4, y + r + 4))
+    pl.add((W - 70, 6, W - 6, 76))
+    for n_, (a, b, c, *rest) in enumerate(sp.get("routes", ())):
+        (x1, y1, r1), (x2, y2, r2) = pos[a], pos[b]
+        L = math.hypot(x2 - x1, y2 - y1) or 1; ux, uy = (x2 - x1) / L, (y2 - y1) / L
+        x1, y1, x2, y2 = x1 + ux * (r1 + 4), y1 + uy * (r1 + 4), x2 - ux * (r2 + 8), y2 - uy * (r2 + 8)
+        bend = (rest[0] if rest else .18) * L; mx, my = (x1 + x2) / 2 + uy * bend, (y1 + y2) / 2 - ux * bend
+        d = f"M{x1:.0f},{y1:.0f} Q{mx:.0f},{my:.0f} {x2:.0f},{y2:.0f}"
+        o.append(f'<path d="{d}" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" opacity=".7"/><path class="rt" d="{d}" fill="none" stroke="{PAL[c]}" stroke-width="6" stroke-linecap="round" marker-end="url(#a{PAL[c][1:]})"/>')
+        dur = 3 + L / 260; beg = (n_ * .9) if sp.get("seq") else 0
+        o.append(f'<circle r="7" fill="{PAL[c]}" stroke="#fff" stroke-width="2.5"><animateMotion dur="{dur:.1f}s" begin="{beg:.1f}s" repeatCount="indefinite" path="{d}"/></circle>')
+    halo = 'paint-order="stroke" stroke="#fffaf0" stroke-width="6" stroke-linejoin="round"'
+    T = []
+    for i in sorted(range(len(mk)), key=lambda i: (not mk[i].get("hl"), i)):
+        m = mk[i]; x, y, r = pos[m["k"]]
+        lab = m["n"]; res = pl.label(x, y, r + 2, lab, fs if m.get("hl") else fs - 4)
+        if not res: continue
+        bx, by, an, far = res
+        T.append(f'<text x="{bx:.0f}" y="{by:.0f}" text-anchor="{an}" font-size="{fs if m.get("hl") else fs - 4}" font-weight="{900 if m.get("hl") else 700}" fill="#2a1d08" {halo}>{H_(lab)}</text>')
+    for lab, lon, lat in sp.get("water", ()):
+        x, y = P(lon, lat); w = tw(lab, fs - 4); b = (x - w / 2, y - fs, x + w / 2, y + 4)
+        if pl.free(b): pl.add(b); T.append(f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="middle" font-size="{fs - 4}" font-style="italic" font-weight="700" fill="#1d5f8f" letter-spacing="3">{H_(lab)}</text>')
+    for lab, lon, lat, rx, ry, c in sp.get("regions", ()):
+        x, y = P(lon, lat); res = pl.label(x, y - ry * sy * .3, 0, lab, fs - 5)
+        if res: T.append(f'<text x="{res[0]:.0f}" y="{res[1]:.0f}" text-anchor="{res[2]}" font-size="{fs - 5}" font-weight="900" fill="{_dk(PAL[c])}" {halo}>{H_(lab)}</text>')
+    o += T
+    for i, m in enumerate(mk):
+        x, y, r = pos[m["k"]]; c = PAL[m.get("c", "blue")]; ic = ICON.get(m["k"], "📍")
+        o.append(f'<g class="pin" style="animation-delay:{(i % 5) * .4:.1f}s"><circle cx="{x:.0f}" cy="{y:.0f}" r="{r}" fill="#fffdf6" stroke="{c}" stroke-width="5"/>'
+                 f'<text x="{x:.0f}" y="{y + r * .36:.0f}" text-anchor="middle" font-size="{r * 1.05:.0f}">{ic}</text>'
+                 f'<circle cx="{x + r * .78:.0f}" cy="{y - r * .78:.0f}" r="11" fill="{c}" stroke="#fff" stroke-width="2"/><text x="{x + r * .78:.0f}" y="{y - r * .78 + 4.5:.0f}" text-anchor="middle" font-size="13" font-weight="900" fill="{ink(c)}">{i + 1}</text></g>')
+    o.append(f'<g transform="translate({W - 38},40)"><circle r="28" fill="#fffaf0" stroke="#b58a3a" stroke-width="2"/><path d="M0,-22L7,0L0,-4L-7,0z" fill="#d94a38"/><path d="M0,22L7,0L0,4L-7,0z" fill="#8a7a5a"/><text y="-8" x="12" font-size="12" font-weight="900" fill="#2a1d08">N</text></g>')
+    o.append('</svg>')
+    return "".join(o), H
+def _dk(c):
+    r, g, b = int(c[1:3], 16), int(c[3:5], 16), int(c[5:7], 16); return "#%02x%02x%02x" % (int(r * .5), int(g * .5), int(b * .5))
+H_ = H.escape
+def jerusalem_svg(sp):
+    """耶路撒冷情景图（手绘风，示意比例）：地势、城墙、圣殿、水道、亚述营与巴比伦破城。"""
+    W, Hh = 1000, 700
+    pt = {"tem": (520, 205), "eg": (622, 196), "cod": (515, 340), "gih": (600, 352), "sil": (470, 478), "bro": (330, 262), "mol": (845, 230), "kid": (688, 420), "hin": (300, 585)}
+    lab = {"tem": None, "eg": ("start", 18, -14), "cod": ("end", -20, 6), "gih": ("start", 20, 6), "sil": ("end", -20, 6), "bro": ("end", -20, 6), "mol": ("middle", 0, -26), "kid": ("start", 20, 6), "hin": ("start", 20, 6)}
+    o = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {Hh}" width="{W}" height="{Hh}" font-family="\'Noto Sans CJK SC\',\'PingFang SC\',\'Microsoft YaHei\',sans-serif">',
+         '<defs><radialGradient id="hl" cx=".45" cy=".4" r=".75"><stop offset="0" stop-color="#fbe9bd"/><stop offset="1" stop-color="#e3c27e"/></radialGradient>',
+         '<linearGradient id="vl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#a9cf94"/><stop offset="1" stop-color="#76a96a"/></linearGradient>',
+         '<marker id="ab" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0L10,5L0,10z" fill="#2f7fd0"/></marker>',
+         '<marker id="ap" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0L10,5L0,10z" fill="#8b5cf6"/></marker></defs>',
+         '<style>.fl{stroke-dasharray:12 9;animation:f 1.3s linear infinite}@keyframes f{to{stroke-dashoffset:-42}}.fire{transform-box:fill-box;transform-origin:50% 100%;animation:fi 1.1s ease-in-out infinite alternate}@keyframes fi{to{transform:scale(1.12,1.22)}}'
+         '.glow{animation:gl 3s ease-in-out infinite}@keyframes gl{50%{opacity:.3}}@media (prefers-reduced-motion:reduce){.fl,.fire,.glow{animation:none}}</style>',
+         f'<rect width="{W}" height="{Hh}" fill="url(#hl)"/>',
+         # 汲沦谷（东）与欣嫩子谷（西、南），中谷
+         '<path d="M668,0 C700,160 700,330 690,470 C680,560 640,620 600,700 L700,700 C730,620 760,520 760,420 C760,300 750,150 735,0Z" fill="url(#vl)"/>',
+         '<path d="M150,180 C200,300 200,470 250,560 C320,650 470,660 640,640 L620,700 L400,700 C260,690 170,620 130,520 C100,420 110,300 95,190Z" fill="url(#vl)"/>',
+         '<path d="M445,110 C440,250 450,380 462,500" fill="none" stroke="#8fbf7c" stroke-width="22" stroke-linecap="round" opacity=".55"/>',
+         '<ellipse cx="855" cy="300" rx="120" ry="270" fill="#bcd690"/>']
+    for i in range(15):
+        tx, ty = 800 + (i % 3) * 48, 110 + (i // 3) * 82
+        o.append(f'<circle cx="{tx}" cy="{ty}" r="15" fill="#6f9a4a"/><rect x="{tx - 2}" y="{ty + 12}" width="4" height="10" fill="#7a5a30"/>')
+    wall = "M425,118 L645,118 L652,300 L570,425 L505,505 L420,508 L262,440 L248,190Z"
+    o.append(f'<path d="{wall}" fill="#f2e0b8" stroke="#8a6a3a" stroke-width="10" stroke-linejoin="round"/><path d="{wall}" fill="none" stroke="#c9a46a" stroke-width="3" stroke-dasharray="4 10"/>')
+    for i in range(16): o.append(f'<rect x="{462 + (i % 4) * 26 + (i // 4) % 2 * 8}" y="{285 + (i // 4) * 28}" width="20" height="16" fill="#e6c88e" stroke="#9a7a48" stroke-width="1.5"/>')
+    for i in range(16): o.append(f'<rect x="{290 + (i % 4) * 30}" y="{300 + (i // 4) * 30}" width="22" height="17" fill="#ead2a0" stroke="#9a7a48" stroke-width="1.5"/>')
+    tx_, ty_ = pt["tem"]
+    o.append(f'<circle class="glow" cx="{tx_}" cy="{ty_}" r="62" fill="#ffd54a" opacity=".5"/><rect x="{tx_ - 60}" y="{ty_ - 48}" width="120" height="92" rx="8" fill="#fff5d8" stroke="#a37b2c" stroke-width="4"/>'
+             f'<rect x="{tx_ - 18}" y="{ty_ - 34}" width="36" height="58" fill="#e9b949" stroke="#8a6a1a" stroke-width="3"/><text x="{tx_}" y="{ty_ + 72}" text-anchor="middle" font-size="22" font-weight="900" fill="#5a3d0a" paint-order="stroke" stroke="#fff5d8" stroke-width="5">圣殿</text>')
+    o.append(f'<text class="fire" x="{tx_ - 92}" y="{ty_ - 40}" font-size="34">🔥</text><text class="fire" x="{tx_ + 62}" y="{ty_ - 46}" font-size="28" style="animation-delay:.3s">🔥</text>')
+    gx, gy = pt["gih"]; sx_, sy_ = pt["sil"]
+    o.append(f'<path class="fl" d="M{gx - 6},{gy + 14} C{gx - 10},{gy + 90} {sx_ + 80},{sy_ - 10} {sx_ + 20},{sy_ - 4}" fill="none" stroke="#2f7fd0" stroke-width="7" marker-end="url(#ab)"/>')
+    o.append(f'<path class="fl" d="M{tx_ + 30},{ty_ - 52} Q700,70 {pt["mol"][0] - 30},{pt["mol"][1] - 6}" fill="none" stroke="#8b5cf6" stroke-width="6" marker-end="url(#ap)"/>')
+    o.append('<g><text x="40" y="70" font-size="40">⛺⛺⛺</text><text x="40" y="108" font-size="21" font-weight="900" fill="#b03a2a">701 亚述大军围城</text><text x="40" y="134" font-size="16" fill="#5a3d0a">城未被攻破：一夜十八万五千人（赛37:36）</text></g>')
+    o.append('<g><text x="40" y="236" font-size="38">🏹🛡️</text><text x="40" y="272" font-size="21" font-weight="900" fill="#b03a2a">586 巴比伦破城</text><text x="40" y="298" font-size="16" fill="#5a3d0a">城墙拆毁、圣殿焚烧（王下25:9-10）</text></g>')
+    o.append(f'<text x="{pt["hin"][0] - 44}" y="{pt["hin"][1] + 12}" font-size="28">🔥</text>')
+    halo = 'paint-order="stroke" stroke="#fffaf0" stroke-width="5" stroke-linejoin="round"'
+    for i, m in enumerate(sp["markers"]):
+        x, y = pt[m["k"]]; c = PAL[m["c"]]
+        o.append(f'<circle cx="{x}" cy="{y}" r="15" fill="{c}" stroke="#fff" stroke-width="3"/><text x="{x}" y="{y + 5}" text-anchor="middle" font-size="14" font-weight="900" fill="{ink(c)}">{i + 1}</text>')
+        L = lab[m["k"]]
+        if L: o.append(f'<text x="{x + L[1]}" y="{y + L[2]}" text-anchor="{L[0]}" font-size="19" font-weight="800" fill="#2a1d08" {halo}>{H_(m["n"])}</text>')
+    o.append(f'<g transform="translate({W - 40},{Hh - 44})"><circle r="26" fill="#fffaf0" stroke="#b58a3a" stroke-width="2"/><path d="M0,-20L6,0L0,-4L-6,0z" fill="#d94a38"/><text y="18" text-anchor="middle" font-size="11" font-weight="900">N</text></g>')
+    o.append(f'<text x="20" y="{Hh - 16}" font-size="14" fill="#3d2a08">情景示意图（本站手绘；比例与城墙走向为示意，位置依通行考古认定）· 蓝：希西家水道　紫：荣耀离殿路线</text></svg>')
+    return "".join(o), W, Hh
 def build(outdir, ver):
     os.makedirs(outdir, exist_ok=True); out = {}
     for k, sp in SPECS.items():
-        W = 1000 if sp["bbox"][1]-sp["bbox"][0] < 10 else 1200
+        W = 1000 if sp["bbox"][1] - sp["bbox"][0] < 10 else 1200
+        if sp.get("scene"):
+            svg, w, h = jerusalem_svg(sp); open(os.path.join(outdir, k + "-c.svg"), "w").write(svg)
+            out[k] = (sp, w, h, None, w, h); continue
         svg, w, h, hs = rmap.real_svg(sp, W)
-        # 动态：路线虚线流动（SVG 内 CSS；尊重减少动态）
         svg = svg.replace('</defs>', '</defs><style>path[marker-end]{animation:fl 1.6s linear infinite}@keyframes fl{to{stroke-dashoffset:-26}}@media (prefers-reduced-motion:reduce){path[marker-end]{animation:none}}</style>', 1)
         open(os.path.join(outdir, k + ".svg"), "w").write(svg)
-        out[k] = (sp, w, h, hs)
+        for m in sp["markers"]: m.pop("_nolab", None)
+        csvg, ch = concept_svg(sp, W); open(os.path.join(outdir, k + "-c.svg"), "w").write(csvg)
+        out[k] = (sp, w, h, hs, W, ch)
     return out
 def html(k, built, ver):
-    sp, w, h, hs = built[k]
+    sp, w, h, hs, cw, ch = built[k]
     t = H.escape(sp["title"])
-    hsb = "".join(f'<button class="hs" style="left:{x:.2f}%;top:{y:.2f}%" data-i="{i}" aria-label="{i+1} {H.escape(m["n"])}"></button>' for i, (m, (x, y)) in enumerate(hs))
-    li = "".join(f'<li data-i="{i}" tabindex="0" style="--c:{PAL[m.get("c","blue")]};--t:{ink(PAL[m.get("c","blue")])}"><b>{i+1}</b><span><strong>{H.escape(m["n"])}</strong> <i>{H.escape(m["en"])}</i> · <em>{H.escape(m["y"])}</em>：{H.escape(m["t"])}</span></li>' for i, m in enumerate(sp["markers"]))
-    return (f'<figure class="gmap" id="map-{k}"><div class="gm-bar"><span>🗺️ {t}</span><span class="gm-z"><button data-z="-1" aria-label="缩小">－</button><button data-z="0" aria-label="复位">⟲</button><button data-z="1" aria-label="放大">＋</button></span></div>'
-            f'<div class="gm-view"><div class="gm-in" style="aspect-ratio:{w}/{h}"><img src="assets/maps/{k}.svg?v={ver}" width="{w}" height="{h}" loading="lazy" decoding="async" alt="{t}">{hsb}</div></div>'
-            f'<figcaption>真实地形底图：Natural Earth（公有领域），本站绘制；地点为通行历史地理认定（部分为“约”）。{H.escape(sp.get("rcap",""))}。点编号或下方列表可高亮地点。</figcaption><ol class="gm-leg">{li}</ol></figure>')
+    data = dict(b=sp["bbox"], m=[[m["ll"][1], m["ll"][0], m["n"], m["y"], m["t"], PAL[m.get("c", "blue")], ICON.get(m["k"], "📍")] for m in sp["markers"]],
+                r=[[[sp["markers"][[x["k"] for x in sp["markers"]].index(a)]["ll"][1], sp["markers"][[x["k"] for x in sp["markers"]].index(a)]["ll"][0]],
+                    [sp["markers"][[x["k"] for x in sp["markers"]].index(b)]["ll"][1], sp["markers"][[x["k"] for x in sp["markers"]].index(b)]["ll"][0]], PAL[c]] for a, b, c, *_ in sp.get("routes", ())])
+    js = H.escape(json.dumps(data, ensure_ascii=False), quote=True)
+    li = "".join(f'<li data-i="{i}" tabindex="0" style="--c:{PAL[m.get("c","blue")]};--t:{ink(PAL[m.get("c","blue")])}"><b>{i+1}</b><span><strong>{ICON.get(m["k"],"📍")} {H.escape(m["n"])}</strong> <i>{H.escape(m["en"])}</i> · <em>{H.escape(m["y"])}</em>：{H.escape(m["t"])}</span></li>' for i, m in enumerate(sp["markers"]))
+    tabs = '<div class="mx-tabs" role="tablist" aria-label="地图视图"><button role="tab" aria-selected="true" data-p="c">🎨 讲解图</button>' + ('' if sp.get("scene") else '<button role="tab" aria-selected="false" data-p="t">🏔️ 地形图</button>') + '<button role="tab" aria-selected="false" data-p="l">🌐 实时地图</button></div>'
+    cpane = f'<div class="mx-pane on" data-p="c"><div class="gm-view"><div class="gm-in" style="aspect-ratio:{cw}/{ch}"><img src="assets/maps/{k}-c.svg?v={ver}" width="{cw}" height="{ch}" loading="lazy" decoding="async" alt="{t}（讲解图）"></div></div></div>'
+    tpane = "" if sp.get("scene") else (f'<div class="mx-pane" data-p="t"><div class="gm-view"><div class="gm-in" style="aspect-ratio:{w}/{h}"><img data-src="assets/maps/{k}.svg?v={ver}" width="{w}" height="{h}" decoding="async" alt="{t}（地形图）">'
+                                        + "".join(f'<button class="hs" style="left:{x:.2f}%;top:{y:.2f}%" data-i="{i}" aria-label="{i+1} {H.escape(m["n"])}"></button>' for i, (m, (x, y)) in enumerate(hs)) + '</div></div></div>')
+    lpane = ('<div class="mx-pane" data-p="l"><div class="lm-bar"><label>🧭 底图源 <select class="lm-src" aria-label="选择在线底图"></select></label><span class="lm-st" role="status" aria-live="polite">点“实时地图”后加载（自托管 Leaflet，多源自动切换）</span></div>'
+             '<div class="lm" aria-label="实时在线地图"></div></div>')
+    steps = ""
+    if sp.get("steps"):
+        steps = '<ol class="msteps">' + "".join(f'<li style="--c:{PAL[c]}"><b>{H.escape(y)}</b>{H.escape(tt)}</li>' for y, tt, c in sp["steps"]) + '</ol>'
+    return (f'<figure class="gmap mx" id="map-{k}" data-map="{js}"><div class="gm-bar"><span class="mx-t">🗺️ {t}</span>{tabs}<span class="gm-z"><button data-z="-1" aria-label="缩小">－</button><button data-z="0" aria-label="复位">⟲</button><button data-z="1" aria-label="放大">＋</button></span></div>'
+            f'<div class="mx-panes">{cpane}{tpane}{lpane}</div>'
+            f'<figcaption>🎨 讲解图／🏔️ 地形图为本站本地 SVG（Natural Earth 公有领域底图），断网也能显示；🌐 实时地图可在 12 个全球底图源间切换，加载失败会自动换源。{H.escape(sp.get("rcap",""))}。点编号或列表可定位地点。</figcaption>{steps}<ol class="gm-leg">{li}</ol></figure>')

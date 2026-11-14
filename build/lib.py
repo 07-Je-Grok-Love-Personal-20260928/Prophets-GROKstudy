@@ -2,7 +2,7 @@
 import json, re, os, html as H, math
 import bible
 CCI = os.environ.get("CCI_DIR", "/workspace/cci")
-VER = "20261031-v1"
+VER = "20261114-v2"
 _h = json.load(open(f"{CCI}/heidelberg.json")); _b = json.load(open(f"{CCI}/belgic.json")); _d = json.load(open(f"{CCI}/dort.json")); CREEDS = json.load(open(f"{CCI}/creeds.json"))
 HCQ = {q["q"]: dict(q, ld=ld["number"], url=ld.get("url")) for ld in _h["lordsdays"] for q in ld["questions"]}
 BCA = {a["number"]: a for a in _b["articles"]}
@@ -127,6 +127,9 @@ def book(d):
     p = d["id"]; c = d.get("color", "var(--gold)"); o = []
     o.append(H2(p, d["icon"], d["name"], c))
     o.append(f'<p class="lead" style="font-size:1.08em">{d["lead"]}</p>')
+    o.append(ESS(p, c))
+    if p in VID:
+        o.append(H3(p + "-vid", "🎬", "视频导览（BibleProject 中文）")); o.append(vids(p))
     o.append(H3(p + "-glance", "👁️", "一眼速览"))
     o.append(grid([f'<div class="card reveal" style="--c:{c}"><h4>📌 基本资料</h4>{kv(d["glance"])}</div>',
                    f'<div class="card reveal" style="--c:{c}"><h4>🔑 钥字 · 钥节</h4><p>{d["keys"]}</p>{"".join(V(v) for v in d["kv"])}</div>'], 320))
@@ -144,6 +147,10 @@ def book(d):
         for m in d["maps"]: o.append(MAP(m))
     o.append(H3(p + "-bg", "🏺", "真实历史背景与文化区域特征"))
     o.append(grid(d["bg"], 280))
+    if p in V2:
+        o.append(H3(p + "-deep", "🏛️", "历史深挖：年代 · 事件 · 意义"))
+        o.append(table(["年代（未注明者为主前）", "事件", "意义 / 经文"], [list(r) for r in V2[p]["deep"]], "deep"))
+        o.append('<h4>🌍 古近东文化透视</h4><div class="ane">' + "".join(f'<div class="reveal" style="--c:{cc}"><h5>{t}</h5><p>{b}</p></div>' for t, b, cc in V2[p]["ane"]) + '</div>')
     if d.get("extra"): o.append(d["extra"])
     o.append(H3(p + "-cov", "🔗", "圣经神学 · 圣约神学"))
     o.append(d["cov"])
@@ -156,11 +163,24 @@ def book(d):
     o.append(H3(p + "-angles", "🔭", "多角度解读"))
     o.append(grid([card(t, f"<p>{b}</p>", ic, PALC[i % 8]) for i, (ic, t, b) in enumerate(d["angles"])], 250))
     o.append(H3(p + "-apply", "🌱", "如何应用"))
-    o.append(APP("<ol>" + "".join(f"<li>{a}</li>" for a in d["apply"]) + "</ol>", "🌱 今日应用（先信神所作，再行神所命）"))
+    o.append(APP("<ol>" + "".join(f"<li>{(a.replace('<b>', '<b class=ap>', 1) if a.startswith('<b>') else a)}</li>" for a in d["apply"]) + "</ol>", "🌱 今日应用（先信神所作，再行神所命）"))
     o.append(H3(p + "-quiz", "✅", "小测验"))
     o.append(quiz(d["quiz"], p + "-q"))
     return "".join(o)
 MAP = None
+from v2data import D as V2, VID, VNOTE, MUX
+def ESS(p, c="var(--gold)"):
+    if p not in V2: return ""
+    d = V2[p]
+    pil = "".join(f'<div style="--c2:{cc}"><b>{t}</b><p>{b}</p></div>' for t, b, cc in d["pil"])
+    return f'<div class="ess reveal" style="--c:{c}"><div class="one">{d["one"]}</div><div class="pil">{pil}</div></div>'
+def vids(key, note=True):
+    out = []
+    for i, (yt, mx, t, dur) in enumerate(VID[key]):
+        out.append(f'<div class="vid reveal" data-yt="{yt}" data-mp4="{MUX.format(mx)}" data-t="{H.escape(t)}" style="--c:{PALC[(i*3+len(key)) % 8]}"><div class="vbox"><div><span class="em">🎬</span><span class="vt">{H.escape(t)}</span></div><span class="pb">BibleProject 普通话{(" · " + dur) if dur else ""}</span></div>'
+                   f'<div class="vact"><button data-a="yt">▶ 播放（YouTube）</button><button data-a="mp4">📼 备用直链 MP4</button><a href="https://www.youtube.com/watch?v={yt}" target="_blank" rel="noopener">↗ 新窗口</a></div></div>')
+    n = f'<p class="sm vnote">⚠️ {VNOTE[key]}</p>' if note and key in VNOTE else ""
+    return f'<div class="vids">{"".join(out)}</div>{n}<p class="sm">视频来自 <a href="https://bibleproject.com/zh-hans/" target="_blank" rel="noopener">BibleProject 简体中文</a>（非改革宗机构，作结构导览用；神学判断以本站与信条为准）。点击才加载；YouTube 不可用时请用“备用直链 MP4”。</p>'
 def _story_idx():
     import re as _re
     d = {}

@@ -20,11 +20,17 @@ def body():
     o.append(f'''<section class="hero reveal"><div class="kick">THE PROPHETS · CONTINENTAL REFORMED · GROKstudy {lib.VER}</div>
 <h1>🔥 先知书深读<br><small style="font-size:.5em;opacity:.85">以赛亚书 → 玛拉基书 · 大先知书5卷 + 十二小先知书 · 欧陆改革宗正统视角</small></h1>
 <p class="lead">十七卷书、约四百年（主前约800–430年）、三个帝国（<span class="pl">亚述</span> → <span class="pl">巴比伦</span> → <span class="pl">波斯</span>）、一个信息：<b class="k">守约的神</b>差遣祂的仆人众先知，控诉背约的百姓，宣告审判，又应许一个<b class="k">新约</b>、一位<b class="k">受苦的仆人</b>、一位<b class="k">大卫的苗裔</b>、一位驾云而来的<b class="k">人子</b>——<b class="xr">耶稣基督</b>。“众先知都为他作见证”（徒10:43）。</p>
-<div class="chips"><span class="chip">📖 先整体后细节</span><span class="chip">🔗 圣约神学 · 圣经神学</span><span class="chip">🗺️ 6 幅真实地图</span><span class="chip">📜 三项联合信条逐字引用</span><span class="chip">✨ 三大信经背诵版与深度对比</span><span class="chip">🧠 口诀 · 卡片 · 测验</span></div></section>''')
+<div class="chips"><span class="chip">📖 先整体后细节</span><span class="chip">🔗 圣约神学 · 圣经神学</span><span class="chip">🗺️ 9 幅三视图地图（讲解图 · 地形图 · 实时多源）</span><span class="chip">🎬 21 段中文视频导览</span><span class="chip">🖍️ 笔记标记 · 遮盖背诵</span><span class="chip">📜 三项联合信条逐字引用</span><span class="chip">✨ 三大信经背诵版与深度对比</span><span class="chip">🧠 口诀 · 卡片 · 测验</span></div></section>''')
     o.append(H2("start", "🧭", "怎样使用本站", "var(--gold)"))
     o.append(flow([("① 整本圣经", "先知书在正典与救赎历史中的位置", "var(--gold)"), ("② 史地文化", "亚述、巴比伦、波斯；列王与先知", "var(--green)"), ("③ 逐卷深读", "17卷：为什么写、写了什么、如何应用", "var(--red)")]))
     o.append(flow([("④ 信条对照", "三项联合信条 × 先知书十大主题", "var(--teal)"), ("⑤ 三大信经", "背诵版、深度对比、为什么需要三个", "var(--purple)"), ("⑥ 速记自测", "口诀、翻卡、测验、读经计划", "var(--blue)")]))
-    o.append('<div class="legend"><span><b class="k">金色</b>＝重点</span><span><b class="h">红色波浪</b>＝难点</span><span><span class="d">蓝色</span>＝年代</span><span><span class="pl">绿色</span>＝地名</span><span><span class="pn">紫色</span>＝人物</span><span><b class="xr">粉色</b>＝指向基督</span></div>')
+    o.append(H2("v2new", "🆕", "v2 新增（2026-11-14）", "var(--pink)"))
+    o.append(grid([card("🗺️ 地图三视图", '<p>每幅地图都有 <b class="k">🎨 讲解图</b>（卡通情景＋动态路线）、<b class="k">🏔️ 地形图</b>（真实海岸线河流）与 <b class="k">🌐 实时地图</b>（12 个全球底图源，含高德；失败自动换源）。新增：阿摩司包围圈、三次被掳三次归回、耶路撒冷情景图。<a href="atlas.html">打开地图集 →</a></p>', "", "var(--orange)"),
+                   card("💎 本质核心", '<p>每卷书开头一句话抓住本质＋三根柱子；新增“历史深挖”年表与“古近东文化透视”。</p>', "", "var(--gold)"),
+                   card("🖍️ 标记系统", '<p>金色荧光＝重点、红波浪＝难点、紫双线＝基督、青虚线＝圣约、绿实线＝应用、粉底纹＝记忆。可一键 <b class="k">🙈 遮盖重点</b> 自测。</p>', "", "var(--pink)"),
+                   card("⚡ 丝滑体验", '<p>去掉大面积毛玻璃、屏外章节按需渲染、页面预取＋原生页面过渡、离线缓存；尊重“减少动态效果”设置。</p>', "", "var(--teal)")], 240))
+    o.append(H3("v2vid", "🎬", "先看两段总览视频（BibleProject 中文）"))
+    o.append(lib.vids("prophets") + lib.vids("ot", False))
     o.append(H2("books", "📚", "十七卷先知书一览（按正典顺序）", "var(--red)"))
     o.append(card17())
     o.append(mnem("赛耶哀结但 · 何珥摩俄拿弥 · 鸿哈番 · 该亚玛", "五卷大先知书 + 十二小先知书（中文和合本顺序）；“大/小”指篇幅，不指重要性"))
