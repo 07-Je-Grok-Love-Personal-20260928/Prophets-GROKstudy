@@ -62,48 +62,61 @@ def drag(pg, cdp, mob, to_x):
 fails = 0; out = {}; inter_tot = {}
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path="/usr/bin/google-chrome", args=["--no-sandbox"])
+    def run_one(b, pg_, w):
+        global fails
+        mob = w < 768
+        ctx = b.new_context(viewport={"width": w, "height": 860}, device_scale_factor=1, is_mobile=mob, has_touch=mob)
+        ctx.route(re.compile(r"youtube|mux\.com|ytimg"), lambda r: r.abort())
+        pg = ctx.new_page(); errs = []
+        pg.on("pageerror", lambda e: errs.append(str(e)[:120]))
+        pg.on("console", lambda m: errs.append("console:" + m.text[:120]) if m.type == "error" and "net::ERR" not in m.text and "Failed to load resource" not in m.text else None)
+        pg.goto(f"http://127.0.0.1:{PORT}/{pg_}.html"); pg.wait_for_timeout(250)
+        pg.wait_for_timeout(700)
+        cdp = ctx.new_cdp_session(pg); terr = []
+        if mob or w < 1100: pg.click("#tocBtn"); pg.wait_for_timeout(300)
+        tt = pg.evaluate(TOCT)
+        if tt["bad"]: terr.append("toc numbering mismatch " + str(tt["bad"]))
+        if not (tt["allOpen"] and tt["allClosed"]): terr.append("expand/collapse-all failed")
+        sizes = {}
+        for lab, tx in (("min", 0), ("max", w + 50)):
+            drag(pg, cdp, mob, tx); c = pg.evaluate(TOCCHK, None); c2 = pg.evaluate(CHECK); sizes[lab] = c["w"]
+            lo, hi = c["lim"]
+            if abs(c["w"] - (lo if lab == "min" else hi)) > 2: terr.append(f"drag {lab}: w={c['w']} lim={c['lim']}")
+            if c["sw"] > c["vw"] or c2["over"] or c2["ovl"]: terr.append(f"overflow at toc {lab}: sw={c['sw']} {c2['over'][:2]} {c2['ovl'][:2]}")
+            if w >= 1100 and c["mainL"] < c["right"] - 1: terr.append(f"toc overlaps main at {lab}")
+            if c["clip"] or c["hov"]: terr.append(f"toc text clipped at {lab}: {c['clip']}")
+        pg.dblclick(".toc-rs"); pg.wait_for_timeout(100)
+        pg.evaluate("localStorage.removeItem('prophets.tocw');localStorage.removeItem('prophets.tocwm')")
+        # 滚动高亮：跳到页面后部某标题，检查目录高亮
+        pg.evaluate("()=>{const hs=[...document.querySelectorAll('main [data-no]')];const h=hs[Math.floor(hs.length*0.7)];document.querySelectorAll('section.sec').forEach(s=>s.style.contentVisibility='visible');h.scrollIntoView();window.__spy=h.id}")
+        pg.wait_for_timeout(450)
+        spy = pg.evaluate("()=>{const a=document.querySelector('#toc .tree a.on');return a?a.getAttribute('href').slice(1):null}")
+        if not spy: terr.append("scrollspy: no active link")
+        if mob or w < 1100: pg.click(".scrim", force=True) if pg.locator(".scrim").is_visible() else None; pg.evaluate("document.documentElement.classList.remove('toc-open')")
+        n = pg.evaluate(INTERACT, {"video": w in (390, 1440)})
+        n.update({"tocToggle": tt["n"]["tg"], "tocLevel": tt["n"]["lv"], "tocDrag": 2, "tocL1": tt["lv"][0], "tocL2": tt["lv"][1], "tocL3": tt["lv"][2]})
+        if w in (390, 1440) and pg.locator(".mx-tabs [data-p=l]").count():
+            pg.locator(".mx-tabs [data-p=l]").first.click(); pg.wait_for_timeout(2500); n["live"] = pg.evaluate("document.querySelectorAll('.leaflet-container').length")
+        for k, v in n.items(): inter_tot[k] = inter_tot.get(k, 0) + (v if isinstance(v, int) else 0)
+        r = pg.evaluate(CHECK); r["errs"] = errs + terr; r["n"] = n; r["toc"] = sizes
+        if w in (390, 1440) and "live" in n and n["live"] < 1: r["errs"].append("live map did not init")
+        bad = r["sw"] > r["vw"] or r["over"] or r["ovl"] or errs or r["miss"]
+        fails += bool(bad); out[f"{pg_}@{w}"] = r
+        print(("❌" if bad else "✅"), pg_, w, "" if not bad else {k: r[k] for k in ("sw", "vw", "over", "ovl", "miss", "errs")}, flush=True)
+        ctx.close()
+
     for pg_ in PAGES:
         for w in WS:
-            mob = w < 768
-            ctx = b.new_context(viewport={"width": w, "height": 860}, device_scale_factor=1, is_mobile=mob, has_touch=mob)
-            ctx.route(re.compile(r"youtube|mux\.com|ytimg"), lambda r: r.abort())
-            pg = ctx.new_page(); errs = []
-            pg.on("pageerror", lambda e: errs.append(str(e)[:120]))
-            pg.on("console", lambda m: errs.append("console:" + m.text[:120]) if m.type == "error" and "net::ERR" not in m.text and "Failed to load resource" not in m.text else None)
-            pg.goto(f"http://127.0.0.1:{PORT}/{pg_}.html"); pg.wait_for_timeout(250)
-            pg.wait_for_timeout(700)
-            cdp = ctx.new_cdp_session(pg); terr = []
-            if mob or w < 1100: pg.click("#tocBtn"); pg.wait_for_timeout(300)
-            tt = pg.evaluate(TOCT)
-            if tt["bad"]: terr.append("toc numbering mismatch " + str(tt["bad"]))
-            if not (tt["allOpen"] and tt["allClosed"]): terr.append("expand/collapse-all failed")
-            sizes = {}
-            for lab, tx in (("min", 0), ("max", w + 50)):
-                drag(pg, cdp, mob, tx); c = pg.evaluate(TOCCHK, None); c2 = pg.evaluate(CHECK); sizes[lab] = c["w"]
-                lo, hi = c["lim"]
-                if abs(c["w"] - (lo if lab == "min" else hi)) > 2: terr.append(f"drag {lab}: w={c['w']} lim={c['lim']}")
-                if c["sw"] > c["vw"] or c2["over"] or c2["ovl"]: terr.append(f"overflow at toc {lab}: sw={c['sw']} {c2['over'][:2]} {c2['ovl'][:2]}")
-                if w >= 1100 and c["mainL"] < c["right"] - 1: terr.append(f"toc overlaps main at {lab}")
-                if c["clip"] or c["hov"]: terr.append(f"toc text clipped at {lab}: {c['clip']}")
-            pg.dblclick(".toc-rs"); pg.wait_for_timeout(100)
-            pg.evaluate("localStorage.removeItem('prophets.tocw');localStorage.removeItem('prophets.tocwm')")
-            # 滚动高亮：跳到页面后部某标题，检查目录高亮
-            pg.evaluate("()=>{const hs=[...document.querySelectorAll('main [data-no]')];const h=hs[Math.floor(hs.length*0.7)];document.querySelectorAll('section.sec').forEach(s=>s.style.contentVisibility='visible');h.scrollIntoView();window.__spy=h.id}")
-            pg.wait_for_timeout(450)
-            spy = pg.evaluate("()=>{const a=document.querySelector('#toc .tree a.on');return a?a.getAttribute('href').slice(1):null}")
-            if not spy: terr.append("scrollspy: no active link")
-            if mob or w < 1100: pg.click(".scrim", force=True) if pg.locator(".scrim").is_visible() else None; pg.evaluate("document.documentElement.classList.remove('toc-open')")
-            n = pg.evaluate(INTERACT, {"video": w in (390, 1440)})
-            n.update({"tocToggle": tt["n"]["tg"], "tocLevel": tt["n"]["lv"], "tocDrag": 2, "tocL1": tt["lv"][0], "tocL2": tt["lv"][1], "tocL3": tt["lv"][2]})
-            if w in (390, 1440) and pg.locator(".mx-tabs [data-p=l]").count():
-                pg.locator(".mx-tabs [data-p=l]").first.click(); pg.wait_for_timeout(2500); n["live"] = pg.evaluate("document.querySelectorAll('.leaflet-container').length")
-            for k, v in n.items(): inter_tot[k] = inter_tot.get(k, 0) + (v if isinstance(v, int) else 0)
-            r = pg.evaluate(CHECK); r["errs"] = errs + terr; r["n"] = n; r["toc"] = sizes
-            if w in (390, 1440) and "live" in n and n["live"] < 1: r["errs"].append("live map did not init")
-            bad = r["sw"] > r["vw"] or r["over"] or r["ovl"] or errs or r["miss"]
-            fails += bool(bad); out[f"{pg_}@{w}"] = r
-            print(("❌" if bad else "✅"), pg_, w, "" if not bad else {k: r[k] for k in ("sw", "vw", "over", "ovl", "miss", "errs")}, flush=True)
-            ctx.close()
+            for attempt in range(3):
+                try:
+                    run_one(b, pg_, w); break
+                except Exception as ex:
+                    print("⚠️ retry", pg_, w, str(ex)[:100], flush=True)
+                    try: b.close()
+                    except Exception: pass
+                    time.sleep(3); b = p.chromium.launch(executable_path="/usr/bin/google-chrome", args=["--no-sandbox"])
+            else:
+                fails += 1; print("❌", pg_, w, "crashed 3x", flush=True)
     b.close()
 srv.terminate()
 ids = {f: set(re.findall(r'id="([^"]+)"', open(f"{D}/{f}.html", encoding="utf-8").read())) for f in [x[:-5] for x in os.listdir(D) if x.endswith(".html")]}
