@@ -196,16 +196,7 @@ html[data-theme=paper]{--toc-bg:rgba(252,247,236,.97);--card:rgba(255,253,247,.8
 .top{view-transition-name:topbar}
 html.notr *,html.notr *::before,html.notr *::after{transition:none!important}
 /* 漂浮云：预模糊渐变层，只做 transform 动画（GPU 合成，不触发布局/重绘） */
-.sky{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;contain:strict}
-.sky i{position:absolute;width:62vmax;height:62vmax;border-radius:50%;will-change:transform;animation:drift 42s ease-in-out infinite alternate}
-.sky i:nth-child(1){left:-20vmax;top:-24vmax;background:radial-gradient(circle,rgba(109,93,252,.38),transparent 62%)}
-.sky i:nth-child(2){right:-24vmax;top:6vmax;background:radial-gradient(circle,rgba(25,194,184,.26),transparent 62%);animation-duration:50s;animation-delay:-12s}
-.sky i:nth-child(3){left:18vmax;bottom:-30vmax;background:radial-gradient(circle,rgba(255,111,168,.2),transparent 62%);animation-duration:56s;animation-delay:-20s}
-.sky i:nth-child(4){right:10vmax;bottom:-20vmax;width:40vmax;height:40vmax;background:radial-gradient(circle,rgba(255,194,75,.18),transparent 62%);animation-duration:46s}
-html[data-theme=paper] .sky i{opacity:.55}
-@keyframes drift{to{transform:translate3d(7vmax,5vmax,0) scale(1.1)}}
-body::before{background:linear-gradient(180deg,var(--bg),var(--bg2))!important}
-@media (prefers-reduced-motion:reduce){.sky i{animation:none}}
+html[data-theme=paper] @media (prefers-reduced-motion:reduce){}
 /* 分节按需渲染：屏外章节跳过布局与绘制 */
 main>section.sec{content-visibility:auto;contain-intrinsic-size:auto 700px}
 /* 卡片：去掉大面积毛玻璃，改用半透明实色（滚动更顺） */
@@ -305,4 +296,96 @@ table.deep td:nth-child(2){font-weight:800;color:var(--hd)}
 .scene svg text{fill:var(--ink)}.scene{color:var(--ink)}.emp{color:var(--ink)}
 .mx-note{grid-column:1/-1;padding:8px 12px;border-radius:12px;background:color-mix(in srgb,var(--orange) 16%,transparent);border:1px solid color-mix(in srgb,var(--orange) 45%,transparent);font-size:14px}
 /* v2 perf: pause decorative loops while scrolling (keeps the compositor free) */
-html.scrolling .sky i,html.scrolling .hero::after,html.scrolling .emp .now,html.scrolling .scene .fl,html.scrolling .scene .pulse{animation-play-state:paused}
+html.scrolling 
+/* =================== v3 (20261114-v3) =================== */
+/* 流畅：不再有滚动时需要重算的毛玻璃/漂浮层/渐显动画；只剩一个静态固定背景层 */
+:root{--tocw:310px;--tocm:340px}
+body::before{background:
+ radial-gradient(70vmax 55vmax at 0% -10%,rgba(109,93,252,.30),transparent 60%),
+ radial-gradient(60vmax 50vmax at 105% 8%,rgba(25,194,184,.22),transparent 60%),
+ radial-gradient(70vmax 60vmax at 40% 115%,rgba(255,111,168,.16),transparent 60%),
+ linear-gradient(180deg,var(--bg),var(--bg2))!important}
+html[data-theme=paper] body::before{background:
+ radial-gradient(70vmax 55vmax at 0% -10%,rgba(255,190,110,.38),transparent 60%),
+ radial-gradient(60vmax 50vmax at 105% 8%,rgba(120,190,255,.28),transparent 60%),
+ radial-gradient(70vmax 60vmax at 40% 115%,rgba(255,150,190,.2),transparent 60%),
+ linear-gradient(180deg,var(--bg),var(--bg2))!important}
+.top{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:linear-gradient(180deg,rgba(16,22,46,.97),rgba(16,22,46,.93));box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 6px 18px rgba(0,0,0,.18)}
+html[data-theme=paper] .top{background:linear-gradient(180deg,rgba(250,245,233,.97),rgba(250,245,233,.93));box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 6px 18px rgba(80,60,20,.08)}
+.reveal,.reveal.in{opacity:1!important;transform:none!important;transition:none!important}
+.wrap{transition:none!important}
+html{scroll-behavior:auto}html.smooth{scroll-behavior:smooth}
+.prog{transform:scaleX(0)}
+@supports (animation-timeline:scroll()){.prog{animation:progv3 linear both;animation-timeline:scroll(root)}@keyframes progv3{to{transform:scaleX(1)}}}
+main>section.sec{content-visibility:auto;contain-intrinsic-size:auto 640px}
+.hero::after{animation:none!important}
+/* ---------- 三级标题编号 ---------- */
+.hn{display:inline-block;font:800 .7em/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:.32em .55em;margin-right:.5em;border-radius:8px;vertical-align:.14em;background:var(--c,var(--blue));color:#0b1020;letter-spacing:0}
+h2.part{font-size:clamp(1.55rem,3.3vw,2.25rem);margin:2.4em 0 .9em;padding:.75em 1em;border:0;border-radius:20px;color:#fff;background:linear-gradient(120deg,#6d5dfc 0%,#c24fd8 45%,#ff6fa8 75%,#ffb24b 100%);box-shadow:0 10px 30px rgba(109,93,252,.25)}
+h2.part .hn{background:rgba(255,255,255,.92);color:#4a2fb8}
+html[data-theme=paper] h2.part{color:#fff}
+h2.part+section,section.sec:has(>h2.part){}
+h3 .hn{background:var(--teal);font-size:.74em}
+h4.hs4{font-size:1.1rem;color:var(--hd);margin:1.7em 0 .6em;padding:.4em .75em;border-left:4px solid var(--teal);border-radius:8px;background:linear-gradient(90deg,rgba(46,211,198,.14),transparent 75%)}
+h4.hs4 .hn{background:var(--gold);font-size:.78em}
+.gmap h4.mx-t{margin:0;font-size:inherit;color:inherit;font-weight:800;line-height:1.4;padding:0;border:0;background:none}
+/* ---------- 目录面板 ---------- */
+.wrap{grid-template-columns:clamp(200px,var(--tocw),calc(100vw - 480px)) minmax(0,1fr)}
+html.toc-off .wrap{grid-template-columns:0 minmax(0,1fr)}
+.toc{display:flex;flex-direction:column;overflow:hidden;padding:0!important;position:sticky;contain:layout style;background:linear-gradient(180deg,rgba(18,25,52,.96),rgba(14,20,42,.96))}
+html[data-theme=paper] .toc{background:linear-gradient(180deg,rgba(252,248,238,.97),rgba(246,239,224,.97))}
+html.toc-off .toc{display:none}
+.toc-hd{flex:none;padding:10px 14px 6px}
+.toc-tabs{display:flex;gap:4px;padding:3px;border-radius:12px;background:rgba(127,127,127,.12)}
+.toc-tabs button{flex:1;border:0;background:none;color:var(--ink2);font:inherit;font-size:13.5px;padding:6px 8px;border-radius:9px;cursor:pointer;white-space:nowrap}
+.toc-tabs button[aria-selected=true]{background:linear-gradient(135deg,#6d5dfc,#19c2b8);color:#fff;font-weight:700}
+.toc-bd{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:4px 16px 48px 12px;scrollbar-width:thin}
+.toc-pane{display:none}.toc-pane.on{display:block}
+.toc-tools{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.toc-tools .ib{height:30px;min-width:0;padding:0 9px;font-size:12.5px;border-radius:9px}
+.toc-tools .lvb{display:inline-flex;gap:0;border-radius:9px;overflow:hidden;border:1px solid var(--line)}
+.toc-tools .lvb .ib{border:0;border-radius:0;background:transparent}.toc-tools .lvb .ib+.ib{border-left:1px solid var(--line)}
+.toc-tools .ib[aria-pressed=true]{background:rgba(242,193,78,.25)}
+.tree ol{list-style:none;margin:0;padding:0}
+.tree li{margin:0}
+.tree li>ol{margin-left:13px;padding-left:5px;border-left:1px dashed var(--line)}
+.tree li.closed>ol{display:none}
+.tree .row{display:flex;align-items:flex-start;gap:0}
+.tree .tg,.tree .sp{flex:none;width:22px;height:30px}
+.tree .tg{border:0;background:none;color:var(--mut);cursor:pointer;border-radius:6px;font-size:12px;padding:0;transition:transform .15s}
+.tree .tg:hover{background:rgba(127,127,127,.15);color:var(--hd)}
+.tree li.closed>.row>.tg{transform:rotate(-90deg)}
+.tree a{flex:1;min-width:0;display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:7px;align-items:baseline;text-decoration:none;color:var(--ink2);line-height:1.42;padding:5px 8px;border-radius:9px;border:0}
+.tree a:hover{background:rgba(127,127,127,.12);color:var(--hd)}
+.tree .no{font:800 11.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:0 5px;border-radius:6px;color:#0b1020;background:#8fb8ff;min-width:1.6em;text-align:center}
+.tree .lv2 .no{background:#7de3d8}.tree .lv3 .no{background:#ffd98a}
+.tree .tx{overflow-wrap:anywhere;text-wrap:pretty}
+.tree .lv1>.row>a{font-weight:800;color:var(--hd);font-size:15px}
+.tree .lv2>.row>a{font-size:14.2px}
+.tree .lv3>.row>a{font-size:13.4px;color:var(--mut)}
+.tree a.path{color:var(--hd)}
+.tree a.on{background:linear-gradient(90deg,rgba(242,193,78,.26),rgba(242,193,78,.06));box-shadow:inset 3px 0 var(--gold);color:var(--hd);font-weight:700}
+html.toc-nw .tree .tx{white-space:nowrap;overflow-wrap:normal}
+html.toc-nw .tree{width:max-content;min-width:100%}
+.site .sg{margin:0 0 8px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.site summary{cursor:pointer;padding:8px 12px;font-weight:800;color:var(--hd);list-style:none}.site summary::-webkit-details-marker{display:none}
+.site summary small{color:var(--mut);font-weight:400}
+.site .sg>div{display:flex;flex-direction:column;padding:2px 6px 8px}
+.site a{text-decoration:none;color:var(--ink2);padding:6px 10px;border-radius:9px;font-size:14.5px}
+.site a:hover{background:rgba(127,127,127,.12)}.site a.on{background:rgba(109,93,252,.25);color:var(--hd);font-weight:700}
+/* 拖宽手柄 */
+.toc-rs{position:absolute;top:0;right:0;bottom:0;width:12px;cursor:col-resize;touch-action:none;z-index:3;display:flex;align-items:center;justify-content:center}
+.toc-rs::before{content:"";position:absolute;top:0;bottom:0;right:0;width:2px;background:var(--line);transition:background .15s,width .15s}
+.toc-rs i{width:6px;height:44px;border-radius:4px;background:rgba(127,127,127,.35);position:relative}
+.toc-rs:hover::before,.toc-rs:focus-visible::before,html.toc-drag .toc-rs::before{width:3px;background:linear-gradient(180deg,#6d5dfc,#19c2b8)}
+.toc-rs:hover i,html.toc-drag .toc-rs i{background:#19c2b8}
+.toc-rs:focus-visible{outline:none}
+html.toc-drag,html.toc-drag *{cursor:col-resize!important;user-select:none!important;-webkit-user-select:none!important}
+html.toc-drag *{transition:none!important}
+@media (max-width:1099px){
+ .toc{position:fixed!important;left:0;top:var(--top);bottom:0;height:auto!important;width:clamp(220px,var(--tocm),calc(100vw - 24px))!important;z-index:45;transform:translateX(-105%);transition:transform .22s cubic-bezier(.2,.8,.2,1),visibility 0s linear .22s;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:flex!important;box-shadow:12px 0 40px rgba(0,0,0,.35);visibility:hidden}
+ html.toc-open .toc{transform:none;visibility:visible;transition:transform .22s cubic-bezier(.2,.8,.2,1),visibility 0s}
+ .toc-rs{width:22px;right:-2px}.toc-rs i{height:56px;width:6px}
+ html.toc-drag .toc{transition:none}
+}
+@media (prefers-reduced-motion:reduce){.toc{transition:none!important}}
