@@ -49,11 +49,12 @@ function mark(a){if(a===curA)return;if(curA){curA.classList.remove('on');toc.que
  var li=a.closest('li'),p=li&&li.parentElement.closest('li');while(p){setOpen(p,true);var pa=p.querySelector('a');if(pa)pa.classList.add('path');p=p.parentElement.closest('li')}
  if(li&&li.classList.contains('has')&&lvOf(li)<3)setOpen(li,true);
  if(bd&&(wide()?!h.classList.contains('toc-off'):h.classList.contains('toc-open'))){var r=a.getBoundingClientRect(),b=bd.getBoundingClientRect();if(r.top<b.top+40||r.bottom>b.bottom-40)bd.scrollTop+=r.top-b.top-b.height/3}}
-if('IntersectionObserver' in window&&toc){
+function spyInit(){if(!('IntersectionObserver' in window&&toc))return;
  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)vis.set(e.target,1);else vis.delete(e.target)});
   if(pend)return;pend=requestAnimationFrame(function(){pend=0;var best=null;vis.forEach(function(_,el){if(!best||(best.compareDocumentPosition(el)&Node.DOCUMENT_POSITION_PRECEDING))best=el});if(best&&links[best.id])mark(links[best.id])})},{rootMargin:'-64px 0px -62% 0px'});
  d.querySelectorAll('main [data-no]').forEach(function(x){if(links[x.id])io.observe(x)});
 }
+if('requestIdleCallback' in window)requestIdleCallback(spyInit,{timeout:300});else setTimeout(spyInit,1);
 
 // 其余交互延后到空闲时初始化（不占首屏主线程）
 function lateInit(){

@@ -12,7 +12,7 @@ GROUPS = [("atl-land", "🏞️", "一、应许之地：先知的家乡、列国
           ("atl-daniel", "🐐", "五、但以理的四国：从巴比伦到罗马", "var(--teal)", ["daniel"], '<p>金、银、铜、铁——列国一个接一个，而“非人手凿出来的石头”（但2:34）要充满天下。</p>')]
 def body():
     o = []
-    o.append('''<section class="hero reveal"><div class="kick">ATLAS · MAPS · SCENES · MEDIA · v2</div><h1>🗺️ 先知书地图集 · 情景图 · 视频</h1>
+    o.append('''<section class="hero reveal"><div class="kick">ATLAS · MAPS · SCENES · MEDIA · v3</div><h1>🗺️ 先知书地图集 · 情景图 · 视频</h1>
 <p class="lead">11 幅地图 × 3 种视图：<b class="k">🎨 讲解图</b>（动态路线、图标、情景）＋<b class="k">🏔️ 地形图</b>（Natural Earth 真实地貌）——都存在本站，<b class="k">断网也能显示</b>；再配 <b class="k">🌐 实时地图</b>，可在 12 个全球底图源之间切换（CARTO、Esri 地形/卫星/国家地理/自然地貌、OpenStreetMap、OpenTopoMap、OSM HOT、高德矢量/卫星……），任何一个源加载失败会<b class="k">自动换下一个</b>；全部失败时自动回到讲解图。</p>
 <div class="chips"><span class="chip">🏞️ 应许之地</span><span class="chip">🦁 亚述</span><span class="chip">🏰 巴比伦</span><span class="chip">👑 波斯</span><span class="chip">🐐 但以理四国</span><span class="chip">🎞️ 动态图</span><span class="chip">🎬 视频全集</span></div></section>''')
     o.append(H2("atl-how", "🧭", "怎样用地图", "var(--blue)"))

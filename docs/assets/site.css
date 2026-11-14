@@ -322,7 +322,6 @@ main>section.sec{content-visibility:auto;contain-intrinsic-size:auto 640px}
 h2.part{font-size:clamp(1.55rem,3.3vw,2.25rem);margin:2.4em 0 .9em;padding:.75em 1em;border:0;border-radius:20px;color:#fff;background:linear-gradient(120deg,#6d5dfc 0%,#c24fd8 45%,#ff6fa8 75%,#ffb24b 100%);box-shadow:0 10px 30px rgba(109,93,252,.25)}
 h2.part .hn{background:rgba(255,255,255,.92);color:#4a2fb8}
 html[data-theme=paper] h2.part{color:#fff}
-h2.part+section,section.sec:has(>h2.part){}
 h3 .hn{background:var(--teal);font-size:.74em}
 h4.hs4{font-size:1.1rem;color:var(--hd);margin:1.7em 0 .6em;padding:.4em .75em;border-left:4px solid var(--teal);border-radius:8px;background:linear-gradient(90deg,rgba(46,211,198,.14),transparent 75%)}
 h4.hs4 .hn{background:var(--gold);font-size:.78em}
@@ -357,7 +356,7 @@ html.toc-off .toc{display:none}
 .tree a:hover{background:rgba(127,127,127,.12);color:var(--hd)}
 .tree .no{font:800 11.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:0 5px;border-radius:6px;color:#0b1020;background:#8fb8ff;min-width:1.6em;text-align:center}
 .tree .lv2 .no{background:#7de3d8}.tree .lv3 .no{background:#ffd98a}
-.tree .tx{overflow-wrap:anywhere;text-wrap:pretty}
+.tree .tx{overflow-wrap:anywhere}
 .tree .lv1>.row>a{font-weight:800;color:var(--hd);font-size:15px}
 .tree .lv2>.row>a{font-size:14.2px}
 .tree .lv3>.row>a{font-size:13.4px;color:var(--mut)}
@@ -385,6 +384,7 @@ html.toc-drag *{transition:none!important}
  html.toc-open .toc{transform:none;visibility:visible;transition:transform .22s cubic-bezier(.2,.8,.2,1),visibility 0s}
  .toc-rs{width:22px;right:-2px}.toc-rs i{height:56px;width:6px}
  html.toc-drag .toc{transition:none}
+ html:not(.toc-open) .toc-bd{content-visibility:hidden}
 }
 @media (prefers-reduced-motion:reduce){.toc{transition:none!important}}
 /* ---------- v3 标记补充：框＝术语 · 红实线＝审判/警告 · 蓝双线＝应许 ---------- */
