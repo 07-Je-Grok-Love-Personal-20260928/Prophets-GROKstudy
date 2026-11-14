@@ -295,8 +295,6 @@ table.deep td:nth-child(2){font-weight:800;color:var(--hd)}
 @media (max-width:640px){.mx-tabs button{padding:5px 8px;font-size:13.5px}.gm-bar{gap:6px}.ess{padding:14px}.anno .lg{font-size:14.5px}}
 .scene svg text{fill:var(--ink)}.scene{color:var(--ink)}.emp{color:var(--ink)}
 .mx-note{grid-column:1/-1;padding:8px 12px;border-radius:12px;background:color-mix(in srgb,var(--orange) 16%,transparent);border:1px solid color-mix(in srgb,var(--orange) 45%,transparent);font-size:14px}
-/* v2 perf: pause decorative loops while scrolling (keeps the compositor free) */
-html.scrolling 
 /* =================== v3 (20261114-v3) =================== */
 /* 流畅：不再有滚动时需要重算的毛玻璃/漂浮层/渐显动画；只剩一个静态固定背景层 */
 :root{--tocw:310px;--tocm:340px}
@@ -351,7 +349,7 @@ html.toc-off .toc{display:none}
 .tree li>ol{margin-left:13px;padding-left:5px;border-left:1px dashed var(--line)}
 .tree li.closed>ol{display:none}
 .tree .row{display:flex;align-items:flex-start;gap:0}
-.tree .tg,.tree .sp{flex:none;width:22px;height:30px}
+.tree .tg,.tree .sp{flex:none;width:26px;height:26px;margin-top:2px}
 .tree .tg{border:0;background:none;color:var(--mut);cursor:pointer;border-radius:6px;font-size:12px;padding:0;transition:transform .15s}
 .tree .tg:hover{background:rgba(127,127,127,.15);color:var(--hd)}
 .tree li.closed>.row>.tg{transform:rotate(-90deg)}
