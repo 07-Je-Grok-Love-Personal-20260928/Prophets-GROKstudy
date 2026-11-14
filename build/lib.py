@@ -2,7 +2,7 @@
 import json, re, os, html as H, math
 import bible
 CCI = os.environ.get("CCI_DIR", "/workspace/cci")
-VER = "20261114-v2"
+VER = "20261114-v3"
 _h = json.load(open(f"{CCI}/heidelberg.json")); _b = json.load(open(f"{CCI}/belgic.json")); _d = json.load(open(f"{CCI}/dort.json")); CREEDS = json.load(open(f"{CCI}/creeds.json"))
 HCQ = {q["q"]: dict(q, ld=ld["number"], url=ld.get("url")) for ld in _h["lordsdays"] for q in ld["questions"]}
 BCA = {a["number"]: a for a in _b["articles"]}
@@ -123,48 +123,64 @@ def era(rows, y0=-1500, y1=-400, W=1200, title=""):
         o.append(f'<text x="{tx:.0f}" y="{y+21}" font-size="13" text-anchor="{anc}"{fill}>{H.escape(note)}</text>')
     o.append("</svg>")
     return f'<div class="era reveal"><div class="in">{"".join(o)}</div></div>'
+def H4(id, ic, t): return f'<h4 id="{id}" class="hs4">{ic} {t}</h4>'
+def _demote(x): return re.sub(r'<(/?)h3(\b[^>]*)>', lambda m: f'<{m.group(1)}h4{m.group(2)}{" class=hs4" if not m.group(1) else ""}>', x)
 def book(d):
+    """每卷三级结构：卷（一级）→ 六个部分（二级）→ 小节（三级）。"""
     p = d["id"]; c = d.get("color", "var(--gold)"); o = []
     o.append(H2(p, d["icon"], d["name"], c))
     o.append(f'<p class="lead" style="font-size:1.08em">{d["lead"]}</p>')
+    # 1 速览
+    o.append(H3(p + "-p1", "💎", "速览：本质 · 钥节 · 视频"))
     o.append(ESS(p, c))
-    if p in VID:
-        o.append(H3(p + "-vid", "🎬", "视频导览（BibleProject 中文）")); o.append(vids(p))
-    o.append(H3(p + "-glance", "👁️", "一眼速览"))
+    o.append(H4(p + "-glance", "👁️", "一眼速览：资料与钥节"))
     o.append(grid([f'<div class="card reveal" style="--c:{c}"><h4>📌 基本资料</h4>{kv(d["glance"])}</div>',
                    f'<div class="card reveal" style="--c:{c}"><h4>🔑 钥字 · 钥节</h4><p>{d["keys"]}</p>{"".join(V(v) for v in d["kv"])}</div>'], 320))
     o.append(mnem(*d["mnem"]))
-    o.append(H3(p + "-why", "❓", "为什么写：前因与目的"))
+    if p in VID:
+        o.append(H4(p + "-vid", "🎬", "视频导览（BibleProject 中文）")); o.append(vids(p))
+    # 2 处境
+    o.append(H3(p + "-p2", "🏺", "处境：为什么写 · 何时 · 何地 · 何种文化"))
+    o.append(H4(p + "-why", "❓", "写作处境与目的"))
     o.append(WHY(d["why"], "❓ 写作处境与目的"))
-    o.append(H3(p + "-what", "🧭", "写了什么：结构与故事线"))
-    o.append(flow(d["outline"]))
-    o.append(story(d["story"], c))
-    o.append(H3(p + "-time", "⏳", "时间线"))
+    o.append(H4(p + "-time", "⏳", "时间线"))
     o.append(tl(d["timeline"], cols=True))
     if d.get("maps"):
-        o.append(H3(p + "-map", "🗺️", "地理位置（地图）"))
+        o.append(H4(p + "-map", "🗺️", "地理位置：讲解图 · 地形图 · 实时地图"))
         o.append(d.get("mapintro", ""))
         for m in d["maps"]: o.append(MAP(m))
-    o.append(H3(p + "-bg", "🏺", "真实历史背景与文化区域特征"))
+    o.append(H4(p + "-bg", "🏛️", "真实历史背景与文化区域特征"))
     o.append(grid(d["bg"], 280))
     if p in V2:
-        o.append(H3(p + "-deep", "🏛️", "历史深挖：年代 · 事件 · 意义"))
+        o.append(H4(p + "-deep", "📜", "历史深挖：年代 · 事件 · 意义"))
         o.append(table(["年代（未注明者为主前）", "事件", "意义 / 经文"], [list(r) for r in V2[p]["deep"]], "deep"))
-        o.append('<h4>🌍 古近东文化透视</h4><div class="ane">' + "".join(f'<div class="reveal" style="--c:{cc}"><h5>{t}</h5><p>{b}</p></div>' for t, b, cc in V2[p]["ane"]) + '</div>')
-    if d.get("extra"): o.append(d["extra"])
-    o.append(H3(p + "-cov", "🔗", "圣经神学 · 圣约神学"))
+        o.append(H4(p + "-ane", "🌍", "古近东文化透视"))
+        o.append('<div class="ane">' + "".join(f'<div class="reveal" style="--c:{cc}"><h5>{t}</h5><p>{b}</p></div>' for t, b, cc in V2[p]["ane"]) + '</div>')
+    # 3 信息
+    o.append(H3(p + "-p3", "🧭", "信息：结构 · 故事线 · 本卷特色"))
+    o.append(H4(p + "-what", "🧩", "结构流程与故事线"))
+    o.append(flow(d["outline"]))
+    o.append(story(d["story"], c))
+    if d.get("extra"): o.append(_demote(d["extra"]))
+    # 4 神学
+    o.append(H3(p + "-p4", "🔗", "神学：圣约 · 基督 · 信条"))
+    o.append(H4(p + "-cov", "🔗", "圣经神学 · 圣约神学"))
     o.append(d["cov"])
-    o.append(H3(p + "-xp", "✝️", "指向基督"))
+    o.append(H4(p + "-xp", "✝️", "指向基督"))
     o.append(d["christ"])
-    o.append(H3(p + "-hard", "⚠️", "难点剖析"))
+    o.append(H4(p + "-conf", "📜", "信条对照（三项联合信条 · 逐字）"))
+    o.append(_demote(d["conf"]))
+    # 5 释读
+    o.append(H3(p + "-p5", "⚠️", "释读：难点 · 多角度"))
+    o.append(H4(p + "-hard", "⚠️", "难点剖析"))
     o.append("".join(HARD(b, "⚠️ 难点：" + t) for t, b in d["hard"]))
-    o.append(H3(p + "-conf", "📜", "信条对照（三项联合信条 · 逐字）"))
-    o.append(d["conf"])
-    o.append(H3(p + "-angles", "🔭", "多角度解读"))
+    o.append(H4(p + "-angles", "🔭", "多角度解读"))
     o.append(grid([card(t, f"<p>{b}</p>", ic, PALC[i % 8]) for i, (ic, t, b) in enumerate(d["angles"])], 250))
-    o.append(H3(p + "-apply", "🌱", "如何应用"))
+    # 6 应用
+    o.append(H3(p + "-p6", "🌱", "应用 · 自测"))
+    o.append(H4(p + "-apply", "🌱", "如何应用"))
     o.append(APP("<ol>" + "".join(f"<li>{(a.replace('<b>', '<b class=ap>', 1) if a.startswith('<b>') else a)}</li>" for a in d["apply"]) + "</ol>", "🌱 今日应用（先信神所作，再行神所命）"))
-    o.append(H3(p + "-quiz", "✅", "小测验"))
+    o.append(H4(p + "-quiz", "✅", "小测验"))
     o.append(quiz(d["quiz"], p + "-q"))
     return "".join(o)
 MAP = None

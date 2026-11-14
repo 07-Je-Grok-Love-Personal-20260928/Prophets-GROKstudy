@@ -20,7 +20,7 @@ def body():
     o.append(MEM('<p><span class="mm">先知地理口诀</span>：“<b class="k">北亚述、南埃及，中间夹着以色列；东巴比伦、再东波斯，归回走的是月湾路</b>”。</p>'))
     for gid, ic, t, c, ks, intro in GROUPS:
         o.append(H2(gid, ic, t, c)); o.append(intro)
-        for k in ks: o.append(lib.MAP(k))
+        for k in ks: o.append(lib.MAP(k).replace('<span class="mx-t">', f'<h4 class="mx-t" id="t-{k}">', 1).replace('</span><div class="mx-tabs"', '</h4><div class="mx-tabs"', 1))
     o.append(H2("atl-anim", "🎞️", "六、动态图：四百年一图看完", "var(--purple)"))
     o.append(emp_anim()); o.append(matrix())
     o.append(H2("atl-vid", "🎬", "七、视频导览全集（BibleProject 简体中文）", "var(--pink)"))
