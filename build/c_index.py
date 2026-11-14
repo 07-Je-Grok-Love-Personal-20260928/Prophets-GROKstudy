@@ -15,6 +15,26 @@ def card17():
         o.append(f'<a class="card bk reveal" href="{slug}.html#{ANCH[n]}" style="--c:{c};text-decoration:none;color:inherit;position:relative"><span class="no">{i+1}</span><div class="ic">{ICON[n]}</div><h4>{n}</h4>'
                  f'<p><span class="d">主前 {yr}</span> · <span class="pl">{er}时期</span></p><p>🎯 对象：{aud}</p><p>{th}</p><p style="opacity:.8;font-size:.9em">🔑 {kv} · {tag}</p></a>')
     return '<div class="grid" style="--min:250px">' + "".join(o) + "</div>"
+def chapters_chart():
+    B = [("赛", 66, "a"), ("耶", 52, "b"), ("哀", 5, "b"), ("结", 48, "b"), ("但", 12, "b"), ("何", 14, "a"), ("珥", 3, "a"), ("摩", 9, "a"), ("俄", 1, "a"),
+         ("拿", 4, "a"), ("弥", 7, "a"), ("鸿", 3, "b"), ("哈", 3, "b"), ("番", 3, "b"), ("该", 2, "c"), ("亚", 14, "c"), ("玛", 4, "c")]
+    C = {"a": "#ff6b5b", "b": "#ff9f43", "c": "#3ccf8e"}
+    W, H0, bw, gap, top = 720, 300, 30, 11, 26
+    sc = (H0 - top - 46) / 66
+    o = [f'<svg viewBox="0 0 {W} {H0}" role="img" aria-label="十七卷章数柱状图" style="width:100%;height:auto">']
+    x0 = 34
+    for i, (n, c, g) in enumerate(B):
+        x = x0 + i * (bw + gap); h = c * sc; y = H0 - 40 - h
+        o.append(f'<rect x="{x}" y="{y:.1f}" width="{bw}" height="{h:.1f}" rx="5" style="fill:{C[g]}"><title>{n} {c} 章</title></rect>')
+        o.append(f'<text x="{x+bw/2}" y="{y-6:.1f}" text-anchor="middle" font-size="13" font-weight="800" style="fill:var(--hd)">{c}</text>')
+        o.append(f'<text x="{x+bw/2}" y="{H0-20}" text-anchor="middle" font-size="15" font-weight="700" style="fill:var(--ink)">{n}</text>')
+    xs = x0 + 5 * (bw + gap) - gap / 2
+    o.append(f'<line x1="{xs}" y1="{top}" x2="{xs}" y2="{H0-36}" style="stroke:var(--mut)" stroke-dasharray="4 4"/>')
+    o.append(f'<text x="{x0}" y="16" font-size="13" style="fill:var(--mut)">五卷大先知书 183 章</text><text x="{xs+8}" y="16" font-size="13" style="fill:var(--mut)">十二小先知书 67 章</text>')
+    o.append("</svg>")
+    leg = "".join(f'<span class="chip" style="border-color:{C[k]}"><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:{C[k]};margin-right:6px"></i>{t}</span>' for k, t in (("a", "亚述时期"), ("b", "巴比伦时期"), ("c", "波斯时期")))
+    return (f'<div class="era reveal"><div class="in">{"".join(o)}</div></div><div class="chips">{leg}</div>'
+            + MEM('<p><span class="mm">66 · 52 · 48</span>：以赛亚、耶利米、以西结三卷就占 166 章（≈ 三分之二）；<b class="k">最长的以赛亚 66 章 ≈ 圣经 66 卷</b>；最短的俄巴底亚只有 1 章 21 节。</p>'))
 def body():
     o = []
     o.append(f'''<section class="hero reveal"><div class="kick">THE PROPHETS · CONTINENTAL REFORMED · GROKstudy {lib.VER}</div>
@@ -24,17 +44,20 @@ def body():
     o.append(H2("start", "🧭", "怎样使用本站", "var(--gold)"))
     o.append(flow([("① 整本圣经", "先知书在正典与救赎历史中的位置", "var(--gold)"), ("② 史地文化", "亚述、巴比伦、波斯；列王与先知", "var(--green)"), ("③ 逐卷深读", "17卷：为什么写、写了什么、如何应用", "var(--red)")]))
     o.append(flow([("④ 信条对照", "三项联合信条 × 先知书十大主题", "var(--teal)"), ("⑤ 三大信经", "背诵版、深度对比、为什么需要三个", "var(--purple)"), ("⑥ 速记自测", "口诀、翻卡、测验、读经计划", "var(--blue)")]))
-    o.append(H2("v2new", "🆕", "v2 新增（2026-11-14）", "var(--pink)"))
-    o.append(grid([card("🗺️ 地图三视图", '<p>每幅地图都有 <b class="k">🎨 讲解图</b>（卡通情景＋动态路线）、<b class="k">🏔️ 地形图</b>（真实海岸线河流）与 <b class="k">🌐 实时地图</b>（12 个全球底图源，含高德；失败自动换源）。新增：阿摩司包围圈、三次被掳三次归回、耶路撒冷情景图。<a href="atlas.html">打开地图集 →</a></p>', "", "var(--orange)"),
-                   card("💎 本质核心", '<p>每卷书开头一句话抓住本质＋三根柱子；新增“历史深挖”年表与“古近东文化透视”。</p>', "", "var(--gold)"),
-                   card("🖍️ 标记系统", '<p>金色荧光＝重点、红波浪＝难点、紫双线＝基督、青虚线＝圣约、绿实线＝应用、粉底纹＝记忆。可一键 <b class="k">🙈 遮盖重点</b> 自测。</p>', "", "var(--pink)"),
-                   card("⚡ 丝滑体验", '<p>去掉大面积毛玻璃、屏外章节按需渲染、页面预取＋原生页面过渡、离线缓存；尊重“减少动态效果”设置。</p>', "", "var(--teal)")], 240))
+    o.append(H2("v3new", "🆕", "v3 新增（2026-11-14）", "var(--pink)"))
+    o.append(grid([card("📑 三级目录", '<p>全站统一 <b class="k">1 / 1.1 / 1.1.1</b> 编号；每级可折叠，可一键展开到一级/二级/三级；<b class="k">拖动目录右边缘可左右拉宽</b>（鼠标、触屏都可），宽度自动记住；手机抽屉同样可拉宽；另有“全站 16 页”分组导航。</p>', "", "var(--blue)"),
+                   card("⚡ 更顺滑", '<p>移除最后的毛玻璃顶栏、漂浮动画层与滚动渐显；进度条改为 CSS 滚动驱动（零 JS）；滚动高亮只用 IntersectionObserver；非首屏交互延后到空闲时初始化。</p>', "", "var(--teal)"),
+                   card("🗺️ 11 幅地图", '<p>新增 <b class="k">列国神谕图</b>（古实到以拦，赛13–23 / 耶46–51 / 结25–32 / 摩1–2）与 <b class="k">下埃及图</b>（耶40–46）。每幅仍是讲解图＋地形图＋12 源实时地图。<a href="atlas.html">打开地图集 →</a></p>', "", "var(--gold)"),
+                   card("🧠 背诵升级", '<p>每卷新增 <b class="k">一页背诵卡</b>；速记页新增 <span class="box">十二个关键术语</span>；标记新增 <span class="box">框＝术语</span>、<span class="ul-r">红实线＝审判/警告</span>、<span class="ul-b">蓝双线＝应许</span>。</p>', "", "var(--pink)")], 240))
+    o.append(KEY('<p><b>v2 回顾</b>：地图三视图、本质一句话＋三根柱子、历史深挖、古近东文化、笔记标记系统、BibleProject 中文视频——全部保留。</p>'))
     o.append(H3("v2vid", "🎬", "先看两段总览视频（BibleProject 中文）"))
     o.append(lib.vids("prophets") + lib.vids("ot", False))
     o.append(H2("books", "📚", "十七卷先知书一览（按正典顺序）", "var(--red)"))
     o.append(card17())
     o.append(mnem("赛耶哀结但 · 何珥摩俄拿弥 · 鸿哈番 · 该亚玛", "五卷大先知书 + 十二小先知书（中文和合本顺序）；“大/小”指篇幅，不指重要性"))
     o.append(mnem("亚述六（何珥摩俄拿弥）· 巴比伦三（鸿哈番）· 波斯三（该亚玛）", "十二小先知书按帝国分组（约珥、俄巴底亚的年代有争议，按正典顺序归组）"))
+    o.append(H3("books-chart", "📊", "篇幅一图：十七卷共 250 章"))
+    o.append(chapters_chart())
     o.append(H2("arc", "🌈", "四百年的故事线", "var(--purple)"))
     rows = sorted(twelve.ALL, key=lambda b: -b[3][0])
     o.append(era([(b[1], -b[3][0], -b[3][1] if b[3][1] != b[3][0] else -b[3][1] + 4, b[7], ("年代不确定" if b[2] == "不确定" else b[2])) for b in rows], -850, -400, title="十七卷先知书事工年代（约）"))

@@ -44,11 +44,11 @@ PARTS = {
  "index": [("start", "go", "🚀", "入门"), ("books", "map17", "📚", "十七卷与四百年"), ("why", "whyp", "💎", "为什么读")],
  "bible": [("canon", "b-a", "📚", "正典与主线"), ("covenant", "b-b", "🔗", "神学骨架：约与职分"), ("reading", "b-c", "🔍", "读法与金线")],
  "history": [("chrono", "h-time", "⏳", "时间：年代 · 帝国 · 列王"), ("map", "h-space", "🌍", "空间与文化：地图 · 古近东"), ("treaty", "h-cov", "📜", "约与世界：条约 · 被掳 · 考古")],
- "atlas": [("atl-how", "a-use", "🧭", "用法"), ("atl-land", "a-maps", "🗺️", "九幅地图（五组）"), ("atl-anim", "a-media", "🎬", "动画 · 视频 · 来源")],
+ "atlas": [("atl-how", "a-use", "🧭", "用法"), ("atl-land", "a-maps", "🗺️", "十一幅地图（五组）"), ("atl-anim", "a-media", "🎬", "动画 · 视频 · 来源")],
  "confessions": [("conf-what", "c-know", "🧾", "认识三项联合信条"), ("conf-themes", "c-th", "🔍", "逐主题对照"), ("conf-idx", "c-more", "🔎", "索引 · 比较 · 关系")],
  "compare": [("cmp-id", "k-who", "🪪", "是什么：身份与对比"), ("cmp-heresy", "k-why", "🛡️", "为什么：异端 · 历史 · 和子"), ("cmp-why", "k-so", "🧠", "所以：三个的必要 · 连接 · 自测")],
  "creeds": [("cr-how", "r-how", "🧠", "方法"), ("cr-apostles", "r-text", "📜", "三大信经干净背诵版"), ("cr-hist", "r-link", "🔗", "连接先知书")],
- "memory": [("m-big", "y-hook", "🔑", "记忆钩"), ("m-flip", "y-drill", "🃏", "练习：翻卡 · 测验"), ("m-plan", "y-plan", "📅", "计划")],
+ "memory": [("m-big", "y-hook", "🔑", "记忆钩：口诀 · 君王 · 术语"), ("m-flip", "y-drill", "🃏", "练习：翻卡 · 测验"), ("m-plan", "y-plan", "📅", "计划")],
  "sources": [("src-cci", "z-text", "📜", "原文与核对"), ("src-bible", "z-ref", "🌐", "资料与参考"), ("src-ver", "z-ver", "🗂️", "版本")],
 }
 def addparts(slug, body):
@@ -63,11 +63,11 @@ def sitenav(slug):
         a = "".join(f'<a href="{x}.html"{" class=on aria-current=page" if x == slug else ""}>{lab[x]}</a>' for x in ss)
         o.append(f'<details class="sg"{" open" if slug in ss else ""}><summary>{g} <small>{len(ss)}</small></summary><div>{a}</div></details>')
     return "".join(o)
-ANNO = ('<details class="anno"><summary>🖍️ 笔记标记图例 · 背诵工具 <span class="v2b">v2</span></summary><div class="lg">'
+ANNO = ('<details class="anno"><summary>🖍️ 笔记标记图例 · 背诵工具 <span class="v2b">v3</span></summary><div class="lg">'
         '<span><b class="k">金色荧光＝重点</b>：必记的核心句</span><span><span class="h">红色波浪线＝难点</span>：易误解处</span>'
         '<span><span class="xr">紫色双线＝基督</span>：指向基督</span><span><span class="cv">青色虚线＝圣约</span>：约的线索</span>'
         '<span><span class="ap">绿色实线＝应用</span>：今天怎么活</span><span><span class="mm">粉色底纹＝记忆钩</span>：口诀/画面</span>'
-        '<span><span class="d">蓝色年代</span> · <span class="pl">绿色地点</span> · <span class="pn">橙色人物</span></span><span>区块：⭐重点 ⚠️难点 ✝️基督 🔗圣约 🌱应用 🧠记忆</span></div>'
+        '<span><span class="box">框＝术语</span>：定义要会讲</span><span><span class="ul-r">红实线＝审判/警告</span></span><span><span class="ul-b">蓝双线＝应许</span></span><span><span class="d">蓝色年代</span> · <span class="pl">绿色地点</span> · <span class="pn">橙色人物</span></span><span>区块：⭐重点 ⚠️难点 ✝️基督 🔗圣约 🌱应用 🧠记忆</span></div>'
         '<div class="tools"><button class="ib" data-mode="cloze" aria-pressed="false">🙈 遮盖重点（点击逐个揭开）</button><button class="ib" data-mode="plain" aria-pressed="false">🎨 彩色 / 简洁 切换</button></div></details>')
 SPEC = '<script type="speculationrules">{"prefetch":[{"source":"document","where":{"href_matches":"*.html"},"eagerness":"moderate"}]}</script>'
 def sections(body):

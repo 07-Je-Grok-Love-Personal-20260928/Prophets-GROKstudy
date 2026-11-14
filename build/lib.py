@@ -180,10 +180,23 @@ def book(d):
     o.append(H3(p + "-p6", "🌱", "应用 · 自测"))
     o.append(H4(p + "-apply", "🌱", "如何应用"))
     o.append(APP("<ol>" + "".join(f"<li>{(a.replace('<b>', '<b class=ap>', 1) if a.startswith('<b>') else a)}</li>" for a in d["apply"]) + "</ol>", "🌱 今日应用（先信神所作，再行神所命）"))
+    if p in V2:
+        o.append(H4(p + "-card", "🧠", "一页背诵卡"))
+        o.append(mcard(d, c))
     o.append(H4(p + "-quiz", "✅", "小测验"))
     o.append(quiz(d["quiz"], p + "-q"))
     return "".join(o)
 MAP = None
+def mcard(d, c):
+    p = d["id"]; v = V2[p]
+    pil = "".join(f'<li style="--c2:{cc}"><b>{t}</b></li>' for t, b, cc in v["pil"])
+    mt, ms = (list(d["mnem"]) + [""])[:2]
+    return (f'<div class="mcard reveal" style="--c:{c}"><div class="mc-h">{d["icon"]} {d["name"]}</div>'
+            f'<div class="mc-r"><span class="box">本质</span><div>{v["one"]}</div></div>'
+            f'<div class="mc-r"><span class="box">三柱</span><ol class="mc-pil">{pil}</ol></div>'
+            f'<div class="mc-r"><span class="box">钥节</span><div>{d["keys"]}</div></div>'
+            f'<div class="mc-r"><span class="box">口诀</span><div><span class="mm">{mt}</span>{(" <small>" + ms + "</small>") if ms else ""}</div></div>'
+            f'<div class="mc-r"><span class="box">时间</span><div>{" → ".join(f"<span class=d>{y}</span> {t}" for y, t, *_ in d["timeline"][:4])}</div></div></div>')
 from v2data import D as V2, VID, VNOTE, MUX
 def ESS(p, c="var(--gold)"):
     if p not in V2: return ""

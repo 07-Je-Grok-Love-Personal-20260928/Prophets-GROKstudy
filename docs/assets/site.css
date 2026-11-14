@@ -387,3 +387,15 @@ html.toc-drag *{transition:none!important}
  html.toc-drag .toc{transition:none}
 }
 @media (prefers-reduced-motion:reduce){.toc{transition:none!important}}
+/* ---------- v3 标记补充：框＝术语 · 红实线＝审判/警告 · 蓝双线＝应许 ---------- */
+.box{display:inline-block;padding:0 .4em;margin:0 .12em;border:1.5px solid var(--orange);border-radius:6px;font-weight:800;color:var(--hd);line-height:1.5;background:rgba(255,159,67,.1)}
+.ul-r{text-decoration:underline solid var(--red) 2px;text-underline-offset:4px;text-decoration-skip-ink:none}
+.ul-b{text-decoration:underline double var(--blue) 2px;text-underline-offset:4px;text-decoration-skip-ink:none}
+html.plain .box{border-color:var(--line);background:none}html.plain .ul-r,html.plain .ul-b{text-decoration:none}
+/* 一页背诵卡 */
+.mcard{border-radius:20px;padding:16px 18px;margin:12px 0;border:2px solid color-mix(in srgb,var(--c) 60%,transparent);background:linear-gradient(135deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 70%),var(--card)}
+.mc-h{font-size:1.2rem;font-weight:900;color:var(--hd);margin-bottom:8px}
+.mc-r{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:baseline;padding:7px 0;border-top:1px dashed var(--line)}
+.mc-r .box{white-space:nowrap}
+.mc-pil{margin:0;padding-left:1.3em}.mc-pil li{margin:.1em 0}.mc-pil b{color:var(--c2,var(--hd))}
+@media print{.top,.toc,.fab,.prog,.anno,.pager,footer{display:none!important}.wrap{display:block}main>section.sec{content-visibility:visible}}
