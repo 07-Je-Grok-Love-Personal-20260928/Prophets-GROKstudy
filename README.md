@@ -12,7 +12,7 @@
 | Netlify | https://prophets-20261114-v2-grokstudy.netlify.app |
 | 仓库 | https://github.com/07-Je-Grok-Love-Personal-20260928/Prophets-GROKstudy |
 
-最后部署与 200 状态核验：__VERIFIED__
+最后部署与 200 状态核验：2026-11-14 11:07（台北时间）· 三个站点 16 页＋资源全部 200
 
 ### 旧版本 v1（保留，可随时访问）
 
